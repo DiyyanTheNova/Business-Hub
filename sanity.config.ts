@@ -1,21 +1,19 @@
-import {defineConfig} from 'sanity'
-import {structureTool} from 'sanity/structure'
-import {visionTool} from '@sanity/vision'
-// CHANGE THIS LINE: import schema instead of schemaTypes
-import {schema} from './sanity/schema' 
+import { defineConfig } from 'sanity'
+import { structureTool } from 'sanity/structure'
+import { visionTool } from '@sanity/vision'
+import { schemaTypes } from './src/sanity/schemaTypes'
 
 export default defineConfig({
   name: 'business-hub',
   title: 'Business Hub CMS',
   
-  projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID!,
-  dataset: process.env.NEXT_PUBLIC_SANITY_DATASET || 'production',
+  // Hardcode these - they're public values anyway
+  projectId: '8e5qmtmg',
+  dataset: 'production',
   
-  plugins: [
-    structureTool(),
-    visionTool(),
-  ],
+  plugins: [structureTool(), visionTool()],
   
-  // CHANGE THIS LINE: just use 'schema'
-  schema, 
+  schema: {
+    types: schemaTypes,
+  },
 })

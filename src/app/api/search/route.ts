@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { createClient } from '@sanity/client';
-import { apiVersion, dataset, projectId } from '@/sanity/env';
+import { apiVersion } from '@/sanity/env';
 
 const client = createClient({
   projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID,

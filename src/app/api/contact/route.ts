@@ -16,7 +16,7 @@ export async function POST(request: Request) {
     }
 
     // Send email using Resend
-    const data = await resend.emails.send({
+    await resend.emails.send({
       from: 'Business Hub <onboarding@resend.dev>', // Resend's test domain
       to: ['phoniexfnarr888@gmail.com'], // Change this to YOUR email
       subject: `New Contact: ${subject || 'No Subject'}`,

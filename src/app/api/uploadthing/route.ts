@@ -1,5 +1,4 @@
-import { createUploadthing, type FileRouter } from "uploadthing/next";
-import { UploadThingError } from "uploadthing/server";
+import { createRouteHandler, createUploadthing, type FileRouter } from "uploadthing/next";
 
 const f = createUploadthing();
 
@@ -28,3 +27,6 @@ export const ourFileRouter = {
 } satisfies FileRouter;
 
 export type OurFileRouter = typeof ourFileRouter;
+
+// Expose the HTTP handlers required by the Next.js App Router route.
+export const { GET, POST } = createRouteHandler({ router: ourFileRouter });

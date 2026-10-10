@@ -1,22 +1,15 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Allow external images
+  // Allow external images (Unsplash for TrustArc, etc.)
   images: {
     remotePatterns: [
       {
         protocol: 'https',
         hostname: 'images.unsplash.com',
       },
-      {
-        protocol: 'https',
-        hostname: 'cdn.sanity.io',
-      },
-      {
-        protocol: 'https',
-        hostname: 'utfs.io',
-      },
     ],
   },
+
   // Security Headers (Black Authority requires strict security)
   async headers() {
     return [

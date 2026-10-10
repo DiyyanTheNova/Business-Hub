@@ -1,7 +1,9 @@
 import Link from "next/link";
-import { Search, Filter, ShoppingBag, ArrowUpRight, Star, Building2 } from "lucide-react";
-import { sanityClient } from "@/lib/sanity";
+import { ArrowUpRight, Star, Building2 } from "lucide-react";
+import { safeFetch } from "@/lib/sanity";
 import { marketplaceQuery } from "@/lib/queries";
+import { filterListings, sortListings } from "@/lib/listings";
+import ListingToolbar from "@/components/ui/ListingToolbar";
 import type { Metadata } from "next";
 
 
@@ -12,6 +14,7 @@ export const metadata: Metadata = {
 
 interface Listing {
   _id: string;
+  _createdAt: string;
   title: string;
   seller: string;
   category: string;
@@ -21,15 +24,38 @@ interface Listing {
   description?: string;
 }
 
-async function getListings() {
-  const listings = await sanityClient.fetch<Listing[]>(marketplaceQuery);
-  return listings;
-}
-
 const categories = ["All", "Software", "Design Assets", "Consulting", "Hardware", "Services"];
 
-export default async function MarketplacePage() {
-  const listings = await getListings();
+const sortOptions = [
+  { value: "newest", label: "Newest first" },
+  { value: "oldest", label: "Oldest first" },
+  { value: "price-high", label: "Price (high–low)" },
+  { value: "price-low", label: "Price (low–high)" },
+  { value: "rating-high", label: "Top rated" },
+  { value: "title-asc", label: "Title (A–Z)" },
+];
+
+// Server Component: fetch from Sanity, then filter/sort based on URL params.
+export default async function MarketplacePage({
+  searchParams,
+}: {
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+}) {
+  const params = await searchParams;
+  const query = typeof params.q === "string" ? params.q : "";
+  const category = typeof params.category === "string" ? params.category : "All";
+  const sort = typeof params.sort === "string" ? params.sort : "newest";
+
+  const listings = await safeFetch<Listing>(marketplaceQuery);
+
+  const filtered = sortListings(
+    filterListings(listings, query, category, ["title", "seller", "description"], "category"),
+    sort,
+    "_createdAt",
+    "title",
+    "price",
+    "rating",
+  );
 
   return (
     <main className="min-h-screen pt-32 pb-20 px-6 md:px-12 bg-bh-black">
@@ -48,48 +74,27 @@ export default async function MarketplacePage() {
           </p>
         </div>
 
-        {/* Search & Filters */}
-        <div className="flex flex-col md:flex-row gap-4 mb-10">
-          <div className="grow relative">
-            <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-bh-ivory/40" size={20} />
-            <input 
-              type="text" 
-              placeholder="Search products, services, sellers..." 
-              className="w-full bg-bh-white/5 border border-bh-white/10 text-bh-ivory pl-12 pr-4 py-3 rounded-sm focus:outline-none focus:border-bh-red transition-colors placeholder:text-bh-ivory/30"
-            />
-          </div>
-          <button className="flex items-center justify-center gap-2 bg-bh-white/5 border border-bh-white/10 text-bh-ivory px-6 py-3 rounded-sm hover:border-bh-ivory/30 transition-colors">
-            <Filter size={18} />
-            <span className="font-heading text-sm uppercase tracking-wider">Filters</span>
-          </button>
-        </div>
-
-        {/* Category Tabs */}
-        <div className="flex flex-wrap gap-2 mb-12 border-b border-bh-white/10 pb-4">
-          {categories.map((cat, index) => (
-            <button 
-              key={cat} 
-              className={`px-5 py-2.5 rounded-sm font-heading text-sm uppercase tracking-wider transition-all duration-300 border ${
-                index === 0 
-                  ? "text-bh-red border-bh-red/50 bg-bh-red/10" 
-                  : "text-bh-ivory/60 border-transparent hover:text-bh-ivory hover:bg-bh-white/5"
-              }`}
-            >
-              {cat}
-            </button>
-          ))}
-        </div>
+        {/* Search, Sort & Filters */}
+        <ListingToolbar
+          categories={categories}
+          sortOptions={sortOptions}
+          searchPlaceholder="Search products, services, sellers..."
+          resultCount={filtered.length}
+        />
 
         {/* Listings Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {listings.length === 0 ? (
+          {filtered.length === 0 ? (
             <div className="col-span-full text-center py-20 text-bh-ivory/50 font-body">
-              No listings posted yet. Check back soon!
+              {listings.length === 0
+                ? "No listings posted yet. Check back soon!"
+                : "No listings match your search. Try a different keyword or filter."}
             </div>
           ) : (
-            listings.map((item) => (
-              <div 
-                key={item._id} 
+            filtered.map((item) => (
+              <Link
+                key={item._id}
+                href={`/marketplace/${item._id}`}
                 className="group bg-bh-black border border-bh-white/10 p-6 flex flex-col transition-all duration-300 hover:border-bh-red/50 hover:-translate-y-1 rounded-sm"
               >
                 {/* Top Meta */}
@@ -130,7 +135,7 @@ export default async function MarketplacePage() {
                     <ArrowUpRight size={16} strokeWidth={1.5} />
                   </div>
                 </div>
-              </div>
+              </Link>
             ))
           )}
         </div>

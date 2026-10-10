@@ -1,7 +1,9 @@
 import Link from "next/link";
-import { Search, MapPin, Clock, Briefcase, DollarSign, ArrowUpRight } from "lucide-react";
-import { sanityClient } from "@/lib/sanity";
+import { MapPin, Clock, Briefcase, DollarSign, ArrowUpRight } from "lucide-react";
+import { safeFetch } from "@/lib/sanity";
 import { jobsQuery } from "@/lib/queries";
+import { filterListings, sortListings } from "@/lib/listings";
+import ListingToolbar from "@/components/ui/ListingToolbar";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -22,15 +24,34 @@ interface Job {
 }
 
 // This is a Server Component, so we can fetch data directly!
-async function getJobs() {
-  const jobs = await sanityClient.fetch<Job[]>(jobsQuery);
-  return jobs;
-}
+const sortOptions = [
+  { value: "newest", label: "Newest first" },
+  { value: "oldest", label: "Oldest first" },
+  { value: "title-asc", label: "Title (A–Z)" },
+  { value: "title-desc", label: "Title (Z–A)" },
+];
 
 const jobTypes = ["All", "Full-time", "Contract", "Remote", "Part-time"];
 
-export default async function JobsPage() {
-  const jobs = await getJobs(); // Fetch real data from Sanity
+// Fetch from Sanity, then filter/sort server-side based on URL search params.
+export default async function JobsPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+}) {
+  const params = await searchParams;
+  const query = typeof params.q === "string" ? params.q : "";
+  const category = typeof params.category === "string" ? params.category : "All";
+  const sort = typeof params.sort === "string" ? params.sort : "newest";
+
+  const jobs = await safeFetch<Job>(jobsQuery);
+
+  const filtered = sortListings(
+    filterListings(jobs, query, category, ["title", "company", "location", "type"], "type"),
+    sort,
+    "postedAt",
+    "title",
+  );
 
   return (
     <main className="min-h-screen pt-32 pb-20 px-6 md:px-12 bg-bh-black">
@@ -49,52 +70,41 @@ export default async function JobsPage() {
           </p>
         </div>
 
-        {/* Search & Filters (UI only for now) */}
-        <div className="flex flex-col md:flex-row gap-4 mb-10">
-          <div className="grow relative">
-            <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-bh-ivory/40" size={20} />
-            <input 
-              type="text" 
-              placeholder="Search job titles, companies, keywords..." 
-              className="w-full bg-bh-white/5 border border-bh-white/10 text-bh-ivory pl-12 pr-4 py-3 rounded-sm focus:outline-none focus:border-bh-red transition-colors placeholder:text-bh-ivory/30"
-            />
-          </div>
-        </div>
+        {/* Search, Sort & Filters */}
+        <ListingToolbar
+          categories={jobTypes}
+          sortOptions={sortOptions}
+          searchPlaceholder="Search job titles, companies, keywords..."
+          resultCount={filtered.length}
+        />
 
-        {/* Job Type Tabs (UI only for now) */}
-        <div className="flex flex-wrap gap-2 mb-12 border-b border-bh-white/10 pb-4">
-          {jobTypes.map((type, index) => (
-            <button 
-              key={type} 
-              className={`px-5 py-2.5 rounded-sm font-heading text-sm uppercase tracking-wider transition-all duration-300 border ${
-                index === 0 
-                  ? "text-bh-red border-bh-red/50 bg-bh-red/10" 
-                  : "text-bh-ivory/60 border-transparent hover:text-bh-ivory hover:bg-bh-white/5"
-              }`}
-            >
-              {type}
-            </button>
-          ))}
-        </div>
-
-        {/* Jobs List - Now mapped from Sanity data */}
+        {/* Jobs List */}
         <div className="flex flex-col gap-4">
-          {jobs.length === 0 ? (
+          {filtered.length === 0 ? (
             <div className="text-center py-20 text-bh-ivory/50 font-body">
-              No jobs posted yet. Check back soon!
+              {jobs.length === 0
+                ? "No jobs posted yet. Check back soon!"
+                : "No jobs match your search. Try a different keyword or filter."}
             </div>
           ) : (
-            jobs.map((job) => (
-              <div 
-                key={job._id} 
-                className="group bg-bh-black border border-bh-white/10 p-6 md:p-8 flex flex-col md:flex-row md:items-center justify-between gap-6 transition-all duration-300 hover:border-bh-red/50 hover:bg-bh-white/5 rounded-sm cursor-pointer"
+            filtered.map((job) => (
+              <Link
+                key={job._id}
+                href={`/jobs/${job._id}`}
+                className="group bg-bh-black border border-bh-white/10 p-6 md:p-8 flex flex-col md:flex-row md:items-center justify-between gap-6 transition-all duration-300 hover:border-bh-red/50 hover:bg-bh-white/5 rounded-sm"
               >
                 {/* Left: Title & Company */}
-                <div className="
-                ]grow">
-                  <h3 className="font-heading text-xl md:text-2xl text-bh-ivory mb-2 group-hover:text-bh-white transition-colors">
-                    {job.title}
-                  </h3>
+                <div className="grow">
+                  <div className="flex items-center gap-3 mb-2">
+                    <h3 className="font-heading text-xl md:text-2xl text-bh-ivory group-hover:text-bh-white transition-colors">
+                      {job.title}
+                    </h3>
+                    {job.featured && (
+                      <span className="inline-block py-0.5 px-2 text-[10px] font-heading font-bold tracking-wider uppercase text-bh-gold border border-bh-gold/30 bg-bh-gold/10 rounded-sm">
+                        Featured
+                      </span>
+                    )}
+                  </div>
                   <div className="flex flex-wrap items-center gap-4 text-sm text-bh-ivory/60">
                     <span className="flex items-center gap-1.5">
                       <Briefcase size={14} /> {job.company}
@@ -119,7 +129,7 @@ export default async function JobsPage() {
                       {job.type}
                     </span>
                     <div className="flex items-center justify-end gap-1.5 text-xs text-bh-ivory/40">
-                      <Clock size={12} /> {new Date(job.postedAt).toLocaleDateString()}
+                      <Clock size={12} /> {job.postedAt ? new Date(job.postedAt).toLocaleDateString() : "—"}
                     </div>
                   </div>
                   
@@ -127,7 +137,7 @@ export default async function JobsPage() {
                     <ArrowUpRight size={18} strokeWidth={1.5} />
                   </div>
                 </div>
-              </div>
+              </Link>
             ))
           )}
         </div>

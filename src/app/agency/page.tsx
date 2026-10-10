@@ -1,8 +1,9 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Target, Eye, Heart, Award, Users, Globe, TrendingUp, Zap } from "lucide-react";
+import { Target, Eye, Heart, Award, TrendingUp, Zap, Camera , Globe , Mail } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 import SectionWrapper from "@/components/sections/SectionWrapper";
 import AnimatedCounter from "@/components/ui/AnimatedCounter";
 
@@ -13,11 +14,43 @@ const values = [
   { icon: Award, title: "Excellence", description: "We hold ourselves to the highest standards of quality." },
 ];
 
-const team = [
-  { name: "Sarah Chen", role: "CEO & Founder", bio: "15+ years in digital strategy and business transformation." },
-  { name: "Marcus Johnson", role: "CTO", bio: "Expert in scalable architecture and emerging technologies." },
-  { name: "Aisha Rahman", role: "Head of Design", bio: "Award-winning designer focused on user-centered experiences." },
-  { name: "David Park", role: "Head of Strategy", bio: "Specialist in market analysis and growth optimization." },
+const teamMembers = [
+  {
+    name: "Ariel.Mew",
+    role: "CEO , Lead programming architect and AI strategist",
+    bio: "Visionary leader with 0 years in digital strategy and business transformation.",
+    image: "/images/ariel-mew.jpg",
+    linkedin: "#",
+    twitter: "#",
+    email: "ariel@businesshub.com",
+  },
+  {
+    name: "IJUFS",
+    role: "Lead AI Engineer and founder",
+    bio: "Visionary leader with 4+ years in digital strategy and business transformation.",
+    image: "/images/founder1.jpg",
+    linkedin: "#",
+    twitter: "#",
+    email: "ariel@businesshub.com",
+  },
+  {
+    name: " Mohammad Mahfuz ",
+    role: "Lead Designer & professional visual artist",
+    bio: "Visionary leader with 8+ years in digital strategy and business transformation.",
+    image: "/images/mahfuz.png",
+    linkedin: "#",
+    twitter: "#",
+    email: "ariel@businesshub.com",
+  },
+  {
+    name: "Arezoo",
+    role: "Lead coordinator",
+    bio: "Visionary leader with 1+ years in digital strategy and business transformation.",
+    image: "/images/arezoo.png",
+    linkedin: "#",
+    twitter: "#",
+    email: "ariel@businesshub.com",
+  },
 ];
 
 export default function AgencyPage() {
@@ -95,7 +128,7 @@ export default function AgencyPage() {
         </div>
       </SectionWrapper>
 
-      {/* Animated Stats Section - FIXED */}
+      {/* Animated Stats Section */}
       <SectionWrapper className="bg-bh-black border-y border-bh-white/5">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
           <AnimatedCounter end={150} suffix="+" label="Projects Delivered" />
@@ -134,7 +167,7 @@ export default function AgencyPage() {
         </div>
       </SectionWrapper>
 
-      {/* Team Section */}
+      {/* Team Section - FIXED WITH REAL PHOTOS */}
       <SectionWrapper className="bg-bh-black border-t border-bh-white/5">
         <div className="mb-16">
           <span className="inline-block text-bh-red font-heading text-xs uppercase tracking-[0.2em] mb-4">
@@ -146,23 +179,55 @@ export default function AgencyPage() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {team.map((member, index) => (
+          {teamMembers.map((member, index) => (
             <motion.div
               key={member.name}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
-              className="border border-bh-white/10 p-8 hover:border-bh-red/50 transition-all duration-300"
+              className="border border-bh-white/10 p-8 hover:border-bh-red/50 transition-all duration-300 group"
             >
-              <div className="w-20 h-20 bg-bh-white/5 rounded-full mb-6 flex items-center justify-center">
-                <Users className="w-10 h-10 text-bh-ivory/30" />
+              {/* Profile Image with Grayscale Hover Effect */}
+              <div className="relative w-20 h-20 mb-6 overflow-hidden rounded-full bg-bh-white/5">
+                <Image
+                  src={member.image}
+                  alt={member.name}
+                  fill
+                  className="object-cover grayscale group-hover:grayscale-0 transition-all duration-500"
+                />
               </div>
+
               <h3 className="font-heading text-xl text-bh-ivory mb-2">{member.name}</h3>
               <div className="font-heading text-sm text-bh-red uppercase tracking-wider mb-4">
                 {member.role}
               </div>
-              <p className="font-body text-sm text-bh-ivory/60 leading-relaxed">{member.bio}</p>
+              <p className="font-body text-sm text-bh-ivory/60 leading-relaxed mb-6">{member.bio}</p>
+
+              {/* Social Links */}
+              <div className="flex items-center gap-3">
+                <a
+                  href={member.linkedin}
+                  className="w-8 h-8 flex items-center justify-center rounded-full border border-bh-white/10 text-bh-ivory/40 hover:text-bh-red hover:border-bh-red/30 transition-all duration-300"
+                  aria-label={`${member.name} LinkedIn`}
+                >
+                  <Camera className="w-4 h-4" />
+                </a>
+                <a
+                  href={member.twitter}
+                  className="w-8 h-8 flex items-center justify-center rounded-full border border-bh-white/10 text-bh-ivory/40 hover:text-bh-red hover:border-bh-red/30 transition-all duration-300"
+                  aria-label={`${member.name} Twitter`}
+                >
+                  <Globe className="w-4 h-4" />
+                </a>
+                <a
+                  href={`mailto:${member.email}`}
+                  className="w-8 h-8 flex items-center justify-center rounded-full border border-bh-white/10 text-bh-ivory/40 hover:text-bh-red hover:border-bh-red/30 transition-all duration-300"
+                  aria-label={`Email ${member.name}`}
+                >
+                  <Mail className="w-4 h-4" />
+                </a>
+              </div>
             </motion.div>
           ))}
         </div>
