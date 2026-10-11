@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Target, Eye, Heart, Award, TrendingUp, Zap, Camera , Globe , Mail } from "lucide-react";
+import { Target, Eye, Heart, Award, TrendingUp, Zap, Camera, Globe, Mail, Shield, Lock, Terminal, Activity } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import SectionWrapper from "@/components/sections/SectionWrapper";
@@ -17,8 +17,8 @@ const values = [
 const teamMembers = [
   {
     name: "Ariel.Mew",
-    role: "CEO , Lead programming architect and AI strategist",
-    bio: "Visionary leader with 0 years in digital strategy and business transformation.",
+    role: "CEO, Lead Programming Architect & AI Strategist",
+    bio: "Visionary leader driving digital strategy and business transformation.",
     image: "/images/ariel-mew.jpg",
     linkedin: "#",
     twitter: "#",
@@ -26,17 +26,17 @@ const teamMembers = [
   },
   {
     name: "IJUFS",
-    role: "Lead AI Engineer and founder",
-    bio: "Visionary leader with 4+ years in digital strategy and business transformation.",
+    role: "Lead AI Engineer & Founder",
+    bio: "Pioneering AI solutions with 4+ years in digital strategy.",
     image: "/images/founder1.jpg",
     linkedin: "#",
     twitter: "#",
     email: "ariel@businesshub.com",
   },
   {
-    name: " Mohammad Mahfuz ",
-    role: "Lead Designer & professional visual artist",
-    bio: "Visionary leader with 8+ years in digital strategy and business transformation.",
+    name: "Mohammad Mahfuz",
+    role: "Lead Designer & Professional Visual Artist",
+    bio: "Crafting premium visual experiences with 8+ years of expertise.",
     image: "/images/mahfuz.png",
     linkedin: "#",
     twitter: "#",
@@ -44,8 +44,8 @@ const teamMembers = [
   },
   {
     name: "Arezoo",
-    role: "Lead coordinator",
-    bio: "Visionary leader with 1+ years in digital strategy and business transformation.",
+    role: "Lead Coordinator",
+    bio: "Ensuring seamless operations and strategic alignment.",
     image: "/images/arezoo.png",
     linkedin: "#",
     twitter: "#",
@@ -77,6 +77,170 @@ export default function AgencyPage() {
             We combine strategic thinking with technical excellence to deliver transformative solutions.
           </p>
         </motion.div>
+      </SectionWrapper>
+
+      {/* REDLINE ADMINISTRATION SECTION - The 3rd Eye */}
+      <SectionWrapper className="relative overflow-hidden">
+        {/* Animated background effect */}
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute inset-0 bg-linear-to-br from-bh-red/5 via-transparent to-bh-black" />
+          <motion.div
+            animate={{ 
+              backgroundPosition: ['0% 0%', '100% 100%'],
+            }}
+            transition={{ 
+              duration: 20,
+              repeat: Infinity,
+              repeatType: 'reverse',
+            }}
+            className="absolute inset-0 opacity-[0.02]"
+            style={{
+              backgroundImage: `radial-gradient(circle at 2px 2px, white 1px, transparent 0)`,
+              backgroundSize: '30px 30px',
+            }}
+          />
+        </div>
+
+        <div className="relative z-10">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="mb-12"
+          >
+            <div className="flex items-center gap-3 mb-6">
+              <div className="w-2 h-2 bg-bh-red rounded-full animate-pulse" />
+              <span className="inline-block text-bh-red font-heading text-xs uppercase tracking-[0.3em]">
+                Administration Interface
+              </span>
+            </div>
+            
+            {/* UPDATED HEADING HERE */}
+            <h2 className="font-heading text-3xl md:text-5xl text-bh-ivory mb-6 leading-tight">
+              Powered by{" "}
+              <span className="text-bh-red tracking-[0.3em]">
+                REDLINE
+              </span>
+            </h2>
+            
+            <p className="font-body text-lg text-bh-ivory/70 max-w-3xl leading-relaxed">
+              The 3rd Eye of Business Hub. A secure, external control interface for platform administration, 
+              real-time monitoring, and strategic oversight.
+            </p>
+          </motion.div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            {/* Redline Logo & Visual */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              className="relative"
+            >
+              <div className="relative bg-bh-black border border-bh-white/10 p-12 flex items-center justify-center min-h-75">
+                {/* Glowing effect behind logo */}
+                <div className="absolute inset-0 bg-linear-to-br from-bh-red/10 via-transparent to-transparent opacity-50" />
+                
+                {/* Redline Logo */}
+                <div className="relative z-10">
+                  <Image
+                    src="/images/redline-logo.jpg"
+                    alt="Redline Administration"
+                    width={280}
+                    height={200}
+                    className="object-contain"
+                    priority
+                  />
+                </div>
+
+                {/* Decorative corners */}
+                <div className="absolute top-4 left-4 w-8 h-8 border-t-2 border-l-2 border-bh-red/30" />
+                <div className="absolute top-4 right-4 w-8 h-8 border-t-2 border-r-2 border-bh-red/30" />
+                <div className="absolute bottom-4 left-4 w-8 h-8 border-b-2 border-l-2 border-bh-red/30" />
+                <div className="absolute bottom-4 right-4 w-8 h-8 border-b-2 border-r-2 border-bh-red/30" />
+              </div>
+
+              {/* Status indicator */}
+              <div className="absolute -top-3 -right-3 flex items-center gap-2 px-4 py-2 bg-bh-black border border-bh-red/50">
+                <div className="w-2 h-2 bg-bh-red rounded-full animate-pulse" />
+                <span className="font-heading text-xs text-bh-red uppercase tracking-wider">Live</span>
+              </div>
+            </motion.div>
+
+            {/* Redline Features */}
+            <motion.div
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              className="space-y-6"
+            >
+              <div className="flex items-start gap-4">
+                <div className="w-12 h-12 flex items-center justify-center border border-bh-white/10 bg-bh-white/5 shrink-0">
+                  <Eye className="w-6 h-6 text-bh-red" strokeWidth={1.5} />
+                </div>
+                <div>
+                  <h3 className="font-heading text-xl text-bh-ivory mb-2">3rd Eye Visibility</h3>
+                  <p className="font-body text-sm text-bh-ivory/60 leading-relaxed">
+                    Complete oversight of platform operations, user activity, and system health from a secure external interface.
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-4">
+                <div className="w-12 h-12 flex items-center justify-center border border-bh-white/10 bg-bh-white/5 shrink-0">
+                  <Shield className="w-6 h-6 text-bh-red" strokeWidth={1.5} />
+                </div>
+                <div>
+                  <h3 className="font-heading text-xl text-bh-ivory mb-2">Secure Administration</h3>
+                  <p className="font-body text-sm text-bh-ivory/60 leading-relaxed">
+                    Military-grade encryption and authentication protocols protect all administrative functions.
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-4">
+                <div className="w-12 h-12 flex items-center justify-center border border-bh-white/10 bg-bh-white/5 shrink-0">
+                  <Terminal className="w-6 h-6 text-bh-red" strokeWidth={1.5} />
+                </div>
+                <div>
+                  <h3 className="font-heading text-xl text-bh-ivory mb-2">Real-Time Control</h3>
+                  <p className="font-body text-sm text-bh-ivory/60 leading-relaxed">
+                    Instant platform modifications, content management, and user oversight without system downtime.
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-4">
+                <div className="w-12 h-12 flex items-center justify-center border border-bh-white/10 bg-bh-white/5 shrink-0">
+                  <Activity className="w-6 h-6 text-bh-red" strokeWidth={1.5} />
+                </div>
+                <div>
+                  <h3 className="font-heading text-xl text-bh-ivory mb-2">Live Monitoring</h3>
+                  <p className="font-body text-sm text-bh-ivory/60 leading-relaxed">
+                    Continuous system health checks, performance metrics, and anomaly detection.
+                  </p>
+                </div>
+              </div>
+
+              {/* Access Button */}
+              <div className="pt-6 border-t border-bh-white/10">
+                <a
+                  href="https://redline-admin-two.vercel.app/login"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-3 px-8 py-4 bg-bh-black border border-bh-red text-bh-red font-heading text-sm uppercase tracking-wider hover:bg-bh-red hover:text-bh-white transition-all duration-300 group"
+                >
+                  <Lock className="w-4 h-4" />
+                  Access Redline Admin
+                  <span className="group-hover:translate-x-1 transition-transform">→</span>
+                </a>
+                <p className="font-body text-xs text-bh-ivory/40 mt-4">
+                  Authorized personnel only. All access is logged and monitored.
+                </p>
+              </div>
+            </motion.div>
+          </div>
+        </div>
       </SectionWrapper>
 
       {/* Mission Section */}
@@ -167,7 +331,7 @@ export default function AgencyPage() {
         </div>
       </SectionWrapper>
 
-      {/* Team Section - FIXED WITH REAL PHOTOS */}
+      {/* Team Section */}
       <SectionWrapper className="bg-bh-black border-t border-bh-white/5">
         <div className="mb-16">
           <span className="inline-block text-bh-red font-heading text-xs uppercase tracking-[0.2em] mb-4">

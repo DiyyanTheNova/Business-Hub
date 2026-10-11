@@ -24,6 +24,9 @@ const members = [
     totalHours: 3420,
     completedProjects: 22,
     ongoingProjects: 2,
+    hourlyRate: "$85-120",
+    responseTime: "2 hours",
+    languages: ["English", "Bengali", "Mandarin"],
     workDistribution: [
       { name: "UI/UX Design", value: 45, color: "#C1121F" },
       { name: "Brand Strategy", value: 30, color: "#D4AF37" },
@@ -38,7 +41,9 @@ const members = [
     testimonials: [
       { text: "Sarah's design work transformed our product. Her attention to detail and user-centric approach is unmatched.", author: "John Smith", company: "TechCorp CEO", rating: 5 },
       { text: "Exceptional talent. Delivered beyond expectations and on time.", author: "Emily Davis", company: "Product Manager", rating: 5 },
-    ]
+    ],
+    certifications: ["Google UX Design", "AWS Certified", "Agile Scrum Master"],
+    education: "MFA Design, Parsons School of Design"
   },
   {
     name: "Marcus Johnson",
@@ -56,6 +61,9 @@ const members = [
     totalHours: 4150,
     completedProjects: 29,
     ongoingProjects: 2,
+    hourlyRate: "$95-150",
+    responseTime: "1 hour",
+    languages: ["English", "Spanish"],
     workDistribution: [
       { name: "Growth Marketing", value: 50, color: "#C1121F" },
       { name: "SEO & Content", value: 25, color: "#D4AF37" },
@@ -70,7 +78,9 @@ const members = [
     testimonials: [
       { text: "Marcus increased our MRR by 40% in just 6 months. His strategies are actionable and highly effective.", author: "David Lee", company: "CloudBase Founder", rating: 5 },
       { text: "A true growth hacker. He understands the metrics that actually matter.", author: "Sarah Jenkins", company: "CMO, NovaTech", rating: 5 },
-    ]
+    ],
+    certifications: ["Google Analytics", "HubSpot Growth-Driven Design", "Facebook Blueprint"],
+    education: "MBA Marketing, Wharton School"
   },
   {
     name: "Aisha Patel",
@@ -88,6 +98,9 @@ const members = [
     totalHours: 5200,
     completedProjects: 40,
     ongoingProjects: 2,
+    hourlyRate: "$110-165",
+    responseTime: "4 hours",
+    languages: ["English", "Hindi", "Gujarati"],
     workDistribution: [
       { name: "Brand Strategy", value: 40, color: "#C1121F" },
       { name: "Visual Identity", value: 30, color: "#D4AF37" },
@@ -102,7 +115,9 @@ const members = [
     testimonials: [
       { text: "Aisha completely redefined how we talk about our product. The new positioning is incredibly sharp.", author: "Michael Ross", company: "CEO, FinEdge", rating: 5 },
       { text: "Professional, insightful, and deeply creative. A must-have for any serious brand.", author: "Lisa Wang", company: "Director, Aura Luxe", rating: 5 },
-    ]
+    ],
+    certifications: ["Brand Strategy Institute", "Digital Marketing Institute"],
+    education: "MA Branding, University of the Arts London"
   },
   {
     name: "David Kim",
@@ -120,6 +135,9 @@ const members = [
     totalHours: 2800,
     completedProjects: 16,
     ongoingProjects: 2,
+    hourlyRate: "$120-180",
+    responseTime: "3 hours",
+    languages: ["English", "Korean", "Japanese"],
     workDistribution: [
       { name: "Product Strategy", value: 45, color: "#C1121F" },
       { name: "Innovation", value: 30, color: "#D4AF37" },
@@ -134,7 +152,9 @@ const members = [
     testimonials: [
       { text: "David's vision for our AI product was spot on. He guided us through a complex launch flawlessly.", author: "Jin Park", company: "CTO, Future Labs", rating: 5 },
       { text: "A rare combination of technical depth and business acumen.", author: "Mark Stevens", company: "VP Product", rating: 4 },
-    ]
+    ],
+    certifications: ["Certified Scrum Product Owner", "AI Product Management"],
+    education: "MS Computer Science, KAIST"
   },
   {
     name: "Elena Rodriguez",
@@ -152,6 +172,9 @@ const members = [
     totalHours: 3900,
     completedProjects: 54,
     ongoingProjects: 2,
+    hourlyRate: "$75-110",
+    responseTime: "1 hour",
+    languages: ["Spanish", "English", "Portuguese"],
     workDistribution: [
       { name: "Video Production", value: 40, color: "#C1121F" },
       { name: "Content Strategy", value: 35, color: "#D4AF37" },
@@ -166,7 +189,9 @@ const members = [
     testimonials: [
       { text: "Elena's content strategy doubled our engagement in 3 months. She truly understands the algorithm.", author: "Carlos Mendez", company: "Marketing Dir", rating: 5 },
       { text: "Creative, reliable, and incredibly talented behind the camera.", author: "Anna Kowalski", company: "Brand Manager", rating: 5 },
-    ]
+    ],
+    certifications: ["YouTube Creator Academy", "TikTok for Business"],
+    education: "BA Communications, Universidad Complutense"
   },
   {
     name: "James Wilson",
@@ -184,6 +209,9 @@ const members = [
     totalHours: 6100,
     completedProjects: 35,
     ongoingProjects: 3,
+    hourlyRate: "$150-250",
+    responseTime: "6 hours",
+    languages: ["English", "French"],
     workDistribution: [
       { name: "1:1 Coaching", value: 50, color: "#C1121F" },
       { name: "Team Workshops", value: 30, color: "#D4AF37" },
@@ -198,7 +226,9 @@ const members = [
     testimonials: [
       { text: "James helped me navigate a critical career transition with clarity and confidence. Highly recommended.", author: "Robert Chen", company: "VP Engineering", rating: 5 },
       { text: "Our team's productivity and morale improved drastically after his workshops.", author: "Linda Martinez", company: "HR Director", rating: 5 },
-    ]
+    ],
+    certifications: ["ICF Certified Coach", "Hogan Assessment Certified"],
+    education: "MBA Organizational Leadership, Columbia Business School"
   },
   {
     name: "Nina Okonjo",
@@ -216,6 +246,9 @@ const members = [
     totalHours: 3100,
     completedProjects: 25,
     ongoingProjects: 2,
+    hourlyRate: "$90-135",
+    responseTime: "2 hours",
+    languages: ["English", "Yoruba", "Igbo"],
     workDistribution: [
       { name: "Operations", value: 45, color: "#C1121F" },
       { name: "Strategy", value: 35, color: "#D4AF37" },
@@ -230,7 +263,9 @@ const members = [
     testimonials: [
       { text: "Nina's operational expertise saved us months of trial and error. She is a true professional.", author: "Emeka Okafor", company: "CEO, FinTech Africa", rating: 5 },
       { text: "Exceptional strategic mind. She sees the big picture and executes the details perfectly.", author: "Grace Liu", company: "COO", rating: 5 },
-    ]
+    ],
+    certifications: ["PMP Certified", "Lean Six Sigma Black Belt"],
+    education: "MBA Strategy, Lagos Business School"
   },
   {
     name: "Alex Thompson",
@@ -248,6 +283,9 @@ const members = [
     totalHours: 2500,
     completedProjects: 12,
     ongoingProjects: 3,
+    hourlyRate: "$175-300",
+    responseTime: "12 hours",
+    languages: ["English"],
     workDistribution: [
       { name: "Advisory", value: 40, color: "#C1121F" },
       { name: "Fundraising", value: 30, color: "#D4AF37" },
@@ -262,7 +300,9 @@ const members = [
     testimonials: [
       { text: "Alex's advice on our pitch deck directly led to our $2M seed round. Invaluable insight.", author: "Tom Harris", company: "Founder, AI Startup", rating: 5 },
       { text: "He has been there and done it. His practical advice is worth 10x his fee.", author: "Jessica Brown", company: "Co-founder", rating: 5 },
-    ]
+    ],
+    certifications: ["Y Combinator Alumni", "500 Startups Mentor"],
+    education: "BS Computer Science, Stanford University"
   }
 ];
 

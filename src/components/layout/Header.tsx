@@ -40,8 +40,8 @@ export default function Header() {
             <Image
               src="/bh-logo.png"
               alt="Business Hub"
-              width={40}
-              height={20}
+              width={35}
+              height={25}
               className="object-contain"
               priority
             />
@@ -58,9 +58,20 @@ export default function Header() {
                 {language === "bn" ? link.bn : link.name}
               </Link>
             ))}
-            
-            {/* Language Switcher - NOW WORKING */}
-            <div className="flex items-center gap-2 pl-6 border-l border-bh-white/20">
+          </nav>
+
+          {/* Right Side Actions - Registration & Language */}
+          <div className="hidden md:flex items-center gap-6">
+            {/* Registration Button */}
+            <Link
+              href="/join"
+              className="px-6 py-2.5 bg-bh-red text-white font-heading text-xs uppercase tracking-wider hover:bg-bh-red/90 transition-all duration-300 border border-bh-red hover:border-bh-red/50"
+            >
+              {language === "bn" ? "নিবন্ধন" : "Register"}
+            </Link>
+
+            {/* Language Switcher - Far Right Corner */}
+            <div className="flex items-center gap-3 pl-6 border-l border-bh-white/20">
               <button
                 onClick={() => setLanguage("en")}
                 className={`font-heading text-xs uppercase tracking-wider cursor-pointer transition-colors ${
@@ -79,7 +90,7 @@ export default function Header() {
                 BN
               </button>
             </div>
-          </nav>
+          </div>
 
           {/* Mobile Menu Button */}
           <button
@@ -107,6 +118,15 @@ export default function Header() {
               <X size={24} />
             </button>
           </div>
+          
+          {/* Registration Button in Mobile */}
+          <Link
+            href="/join"
+            onClick={() => setIsMobileMenuOpen(false)}
+            className="w-full mb-8 px-6 py-3 bg-bh-red text-white font-heading text-sm uppercase tracking-wider text-center hover:bg-bh-red/90 transition-colors"
+          >
+            {language === "bn" ? "নিবন্ধন করুন" : "Register Now"}
+          </Link>
           
           {/* Language Switcher in Mobile Menu */}
           <div className="flex gap-4 mb-8 pb-8 border-b border-bh-white/10">

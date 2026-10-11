@@ -29,19 +29,32 @@ const footerLinks = {
 
 export default function Footer() {
   return (
-    <footer className="relative bg-bh-black border-t border-bh-white/10 pt-20 pb-10 px-6 md:px-12 overflow-hidden">
+    <footer className="relative bg-bh-black border-t border-bh-white/10 pt-20 pb-12 px-6 md:px-12 overflow-hidden">
       
-      {/* BACKGROUND CRANE IMAGE */}
-      <div className="absolute inset-0 pointer-events-none z-0 opacity-20">
+      {/* BACKGROUND IMAGE */}
+      <div className="absolute inset-0 pointer-events-none z-0">
+        {/* Background Image */}
         <Image
-          src="/images/footer-cranes.png"
+          src="/images/footer-cranes.png" // Replace with your actual footer background image
           alt=""
           fill
-          className="object-cover object-center"
-          style={{ mixBlendMode: "overlay" }}
-          priority={false}
+          className="object-cover opacity-20"
+          priority
         />
-        <div className="absolute inset-0 bg-linear-to-t from-bh-black via-bh-black/80 to-bh-black/50" />
+        
+        {/* Dark Overlay to ensure text readability */}
+        <div className="absolute inset-0 bg-linear-to-t from-bh-black via-bh-black/95 to-bh-black/90" />
+        
+        {/* Subtle gradient accent */}
+        <div className="absolute inset-0 bg-linear-to-br from-bh-red/5 via-transparent to-bh-gold/5" />
+        
+        {/* Decorative pattern overlay */}
+        <div className="absolute inset-0 opacity-[0.03]" 
+             style={{
+               backgroundImage: `radial-gradient(circle at 2px 2px, white 1px, transparent 0)`,
+               backgroundSize: '40px 40px'
+             }}
+        />
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto">
@@ -51,16 +64,22 @@ export default function Footer() {
           
           {/* Brand Column */}
           <div className="md:col-span-4 space-y-6">
+            
             {/* BH Logo */}
             <Link href="/" className="inline-block">
-              <Image
-                src="/images/bh-logo.png"
-                alt="Business Hub Logo"
-                width={60}
-                height={40}
-                className="object-contain"
-                priority
-              />
+              <div className="flex items-center gap-3">
+                <Image 
+                  src="/images/bh-logo.png" 
+                  alt="Business Hub Logo"
+                  width={40} 
+                  height={40}
+                  className="object-contain"
+                  priority
+                />
+                <span className="font-heading text-xl text-bh-white">
+                  Business<span className="text-bh-red">Hub</span>
+                </span>
+              </div>
             </Link>
             
             <p className="font-body text-sm text-bh-ivory/60 max-w-xs leading-relaxed">
